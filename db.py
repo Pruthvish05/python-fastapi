@@ -18,3 +18,6 @@ class Posts(DeclarativeBase):
 
 engine = create_async_engine(DATABASE_URL, echo=True)
 async_session = async_sessionmaker(engine, expire_on_commit=False)
+async def create_db_with_tables() -> None:
+    async with engine.begin() as conn:
+        await conn.run_sync(DeclarativeBase.metadata.create_all)
