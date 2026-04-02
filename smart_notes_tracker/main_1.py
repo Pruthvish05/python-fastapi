@@ -1,11 +1,25 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List
+#we add somethings ukwim.
+from .database import SessionLocal, engine, Base
+import models
+models.Base.metadata.create_all(bind=engine)
 app = FastAPI()
 Notes = []
 class Note(BaseModel):
     title: str
     content: str
+
+#now we connect to the database and create tables
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+
 #Root endpoint i really dont know but yea.
 @app.get("/")
 def root():
@@ -37,4 +51,4 @@ def delete_note(note_id: int):
             Notes.remove(note)
             len(Notes) - 1
             return {"message": "Note deleted successfully"}
-    raise HTTPException(status_code=404, detail="Note not found")
+    raise HTTPException(status_code=404, detail="Note not found")x\
