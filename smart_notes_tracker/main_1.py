@@ -2,7 +2,7 @@ from fastapi import Depends, FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List
 
-from requests import Session
+from sqlalchemy.orm import Session
 #we add somethings ukwim.
 from database import SessionLocal, engine, Base
 import models
