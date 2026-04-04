@@ -1,5 +1,7 @@
 from sqlalchemy.orm import Session
 import models,schemas
+from database import SessionLocal
+from fastapi import HTTPException
 
 def create_note(db: Session, note: schemas.NoteCreate):
     db_note = models.Note(title=note.title, content=note.content)

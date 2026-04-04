@@ -73,3 +73,10 @@ def delete_note(note_id: int, db: Session = Depends(get_db)):
     db.delete(note)
     db.commit()
     return {"message": "Note deleted successfully"}
+
+#everything is modularized these comments were useful or useless
+#idk but i hope this was helpful 
+#this is just the beginning
+#MORE TO COME!
+#gotta add an option which clears the database
+

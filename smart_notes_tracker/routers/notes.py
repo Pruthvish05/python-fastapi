@@ -2,8 +2,10 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 import crud, schemas
 from database import SessionLocal
+import models
 
 router = APIRouter()
+
 def get_db():
     db = SessionLocal()
     try:
@@ -16,8 +18,10 @@ def create_note(note: schemas.NoteCreate, db: Session = Depends(get_db)):
     return crud.create_note(db, note)
 
 @router.get("/notes", response_model=list[schemas.NoteResponse])
-def get_notes(db: Session = Depends(get_db)):
-    return crud.get_notes(db)
+def get_notes(page: int = 1, limit: int = 10, db: Session = Depends(get_db)):
+    offset = (page - 1) * limit
+    notes = db.query(models.Note).offset(offset).limit(limit).all()
+    return notes
 
 @router.get("/notes/{note_id}", response_model=schemas.NoteResponse)
 def get_note(note_id: int, db: Session = Depends(get_db)):
