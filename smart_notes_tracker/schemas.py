@@ -12,3 +12,9 @@ class NoteResponse(noteBase):
 
     class Config:
         orm_mode = True
+
+class PaginationedNotes(BaseModel):
+    total: int
+    page: int
+    limit: int
+    notes: list[NoteResponse]
