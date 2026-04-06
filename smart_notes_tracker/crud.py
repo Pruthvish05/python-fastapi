@@ -46,7 +46,7 @@ def delete_note(db: Session, note_id: int):
         raise
     return note
 
-def get_paginated_notes(db: Session, page: int, limit: int):
+def get_paginationed_notes(db: Session, page: int, limit: int):
     offset = (page - 1) * limit
     total = db.query(models.Note).count()
     notes = db.query(models.Note).offset(offset).limit(limit).all()
@@ -54,5 +54,7 @@ def get_paginated_notes(db: Session, page: int, limit: int):
         "total": total,
         "page": page,
         "limit": limit,
-        "notes": notes
+        "has_next": offset + limit < total,
+        "has_prev": offset > 0,
+        "notes": notes,
     }

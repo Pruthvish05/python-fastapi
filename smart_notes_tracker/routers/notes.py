@@ -18,8 +18,8 @@ def create_note(note: schemas.NoteCreate, db: Session = Depends(get_db)):
     return crud.create_note(db, note)
 
 @router.get("/notes", response_model=schemas.PaginationedNotes)
-def get_notes(page: int, limit: int, db: Session = Depends(get_db)):
-    total, notes = crud.get_paginated_notes(db, page, limit)
+def get_notes(page: int = 1, limit: int = 10, db: Session = Depends(get_db)):
+    total, notes, page, limit = crud.get_paginated_notes(db, page, limit)
     return {
         "total": total,
         "page": page,
