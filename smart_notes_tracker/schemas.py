@@ -1,5 +1,8 @@
 from pydantic import BaseModel
-
+#this file contains all the schemas for the notes
+#schemas are to define the structure of the data 
+#they are like a wall between the database and the user
+#they are used to validate the data and to serialize the data
 class noteBase(BaseModel):
     title: str
     content: str

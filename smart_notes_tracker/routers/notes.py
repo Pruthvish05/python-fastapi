@@ -5,7 +5,8 @@ from database import SessionLocal
 import models
 
 router = APIRouter()
-
+#this is where we have all the end points for the notes
+#we will use the crud operations from the crud.py file to perform the operations on the database
 def get_db():
     db = SessionLocal()
     try:
@@ -19,13 +20,7 @@ def create_note(note: schemas.NoteCreate, db: Session = Depends(get_db)):
 
 @router.get("/notes", response_model=schemas.PaginationedNotes)
 def get_notes(page: int = 1, limit: int = 10, db: Session = Depends(get_db)):
-    total, notes, page, limit = crud.get_paginated_notes(db, page, limit)
-    return {
-        "total": total,
-        "page": page,
-        "limit": limit,
-        "notes": notes
-    }
+    return crud.get_paginationed_notes(db, page, limit)
 
 
 @router.get("/notes/{note_id}", response_model=schemas.NoteResponse)
