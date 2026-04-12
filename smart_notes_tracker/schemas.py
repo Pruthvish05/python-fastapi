@@ -21,3 +21,15 @@ class PaginationedNotes(BaseModel):
     page: int
     limit: int
     notes: list[NoteResponse]
+
+class UserCreate(BaseModel):
+    email: str
+    password: str
+
+class userlogin(BaseModel):
+    email: str
+    password: str
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
