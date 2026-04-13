@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
-from smart_notes_tracker import crud, schemas, models
-from smart_notes_tracker.auth import create_access_token, hash_password, verify_password
-from smart_notes_tracker.database import SessionLocal
+import crud, schemas, models
+from auth import create_access_token, hash_password, verify_password
+from database import SessionLocal
 
 router = APIRouter()
 
