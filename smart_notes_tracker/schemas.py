@@ -14,7 +14,7 @@ class NoteResponse(noteBase):
     id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class PaginationedNotes(BaseModel):
     total: int
