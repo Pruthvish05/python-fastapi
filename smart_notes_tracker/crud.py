@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 import models,schemas
 from database import SessionLocal
+from sqlalchemy.exc import SQLAlchemyError
 from fastapi import HTTPException
 #this file contains all the curd operations
 #as the name suggests
@@ -30,9 +31,9 @@ def update_note(db: Session, note_id: int, note: schemas.NoteCreate):
     try:
         db.commit()
         db.refresh(db_note)
-    except:
+    except SQLAlchemyError as e:
         db.rollback()
-        raise
+        raise HTTPException(status_code=500, detail=str(e))
     return db_note
 
 def delete_note(db: Session, note_id: int):
