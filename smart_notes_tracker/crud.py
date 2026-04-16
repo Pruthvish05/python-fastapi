@@ -4,7 +4,7 @@ from database import SessionLocal
 from sqlalchemy.exc import SQLAlchemyError
 from fastapi import HTTPException
 #this file contains all the curd operations
-#as the name suggests
+#as the name suggests CRUD stands for Create, Read, Update, Delete
 def create_note(db: Session, note: schemas.NoteCreate):
     db_note = models.Note(title=note.title, content=note.content)
     db.add(db_note)
